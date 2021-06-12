@@ -65,7 +65,7 @@
         </router-link>
 
         <router-link :to="{ name: 'adminCreateProject'}">
-            <i class="fa fa-users gradient-info color-white"></i>
+            <i class="fa fa-users bg-info color-white"></i>
             <span>Create Project</span>
             <i class="fa fa-angle-right"></i>
         </router-link>

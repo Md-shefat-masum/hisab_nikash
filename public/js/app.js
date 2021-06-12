@@ -2257,6 +2257,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -53780,61 +53782,9 @@ var render = function() {
         }
       },
       [
-        _c("h3", [_vm._v("Insert Expense")]),
+        _c("h3", [_vm._v("Create Labour")]),
         _vm._v(" "),
         _c("p"),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass:
-              "input-style has-borders no-icon validate-field input-style-always-active mb-4 custom_select2"
-          },
-          [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.form_data.date,
-                  expression: "form_data.date"
-                }
-              ],
-              staticClass: "form-control validate-text",
-              attrs: {
-                type: "date",
-                name: "date",
-                id: "form1",
-                placeholder: "United States"
-              },
-              domProps: { value: _vm.form_data.date },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.form_data, "date", $event.target.value)
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c(
-              "label",
-              {
-                staticClass: "color-highlight font-500",
-                attrs: { for: "form1" }
-              },
-              [_vm._v("Date")]
-            ),
-            _vm._v(" "),
-            _c("em", { staticClass: "c_em" }, [_vm._v("(required)")]),
-            _vm._v(" "),
-            _c("div", {
-              staticClass: "text-danger d-block error date",
-              staticStyle: { position: "unset" }
-            })
-          ]
-        ),
         _vm._v(" "),
         _c("div", { staticClass: "mb-4 custom_select2" }, [
           _c(
@@ -53848,7 +53798,7 @@ var render = function() {
               },
               attrs: { for: "select2" }
             },
-            [_vm._v("Employee")]
+            [_vm._v("Project")]
           ),
           _vm._v(" "),
           _c(
@@ -53947,7 +53897,111 @@ var render = function() {
                 staticClass: "color-highlight font-500",
                 attrs: { for: "Amount" }
               },
-              [_vm._v("Amount in english")]
+              [_vm._v("Name")]
+            ),
+            _vm._v(" "),
+            _c("em", { staticClass: "c_em" }, [_vm._v("(required)")]),
+            _vm._v(" "),
+            _c("div", {
+              staticClass: "text-danger d-block error amount",
+              staticStyle: { position: "unset" }
+            })
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass:
+              "input-style has-borders no-icon validate-field input-style-always-active mb-4 custom_select2"
+          },
+          [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.form_data.amount,
+                  expression: "form_data.amount"
+                }
+              ],
+              staticClass: "form-control validate-text",
+              attrs: {
+                type: "number",
+                name: "amount",
+                id: "Amount",
+                placeholder: "example: 700"
+              },
+              domProps: { value: _vm.form_data.amount },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.form_data, "amount", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "label",
+              {
+                staticClass: "color-highlight font-500",
+                attrs: { for: "Amount" }
+              },
+              [_vm._v("Mobile No")]
+            ),
+            _vm._v(" "),
+            _c("em", { staticClass: "c_em" }, [_vm._v("(required)")]),
+            _vm._v(" "),
+            _c("div", {
+              staticClass: "text-danger d-block error amount",
+              staticStyle: { position: "unset" }
+            })
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass:
+              "input-style has-borders no-icon validate-field input-style-always-active mb-4 custom_select2"
+          },
+          [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.form_data.amount,
+                  expression: "form_data.amount"
+                }
+              ],
+              staticClass: "form-control validate-text",
+              attrs: {
+                type: "number",
+                name: "amount",
+                id: "Amount",
+                placeholder: "example: 700"
+              },
+              domProps: { value: _vm.form_data.amount },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.form_data, "amount", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "label",
+              {
+                staticClass: "color-highlight font-500",
+                attrs: { for: "Amount" }
+              },
+              [_vm._v("Per day amount")]
             ),
             _vm._v(" "),
             _c("em", { staticClass: "c_em" }, [_vm._v("(required)")]),
