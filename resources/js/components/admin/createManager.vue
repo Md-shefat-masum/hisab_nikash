@@ -1,17 +1,10 @@
 <template>
     <div>
         <form action="#" id="expense_form" enctype="multipart/form-data">
-            <h3>Insert Expense</h3>
+            <h3>Create Manger</h3>
             <p></p>
-            <div class="input-style has-borders no-icon validate-field input-style-always-active mb-4 custom_select2">
-                <input type="date" name="date" v-model="form_data.date" class="form-control validate-text" id="form1" placeholder="United States" />
-                <label for="form1" class="color-highlight font-500">Date</label>
-                <em class="c_em">(required)</em>
-                <div class="text-danger d-block error date" style="position: unset;"></div>
-            </div>
-
             <div class="mb-4 custom_select2">
-                <label for="select2" class="color-highlight font-500" style="position:absolute;background:white;top:-12px">Employee</label>
+                <label for="select2" class="color-highlight font-500" style="position:absolute;background:white;top:-12px">Project</label>
                 <em class="c_em" style="right:12px; top:-12px;">(required)</em>
                 <select name="employee_id" class="form-control employee" v-model="form_data.employee_id" id="form2">
                     <option v-for="item in get_employee_list" :key="item.id" :value="item.id">{{ item.first_name + ' ' + item.last_name }}</option>
@@ -21,17 +14,38 @@
 
             <div class="input-style has-borders no-icon validate-field input-style-always-active mb-4 custom_select2">
                 <input type="number" name="amount" v-model="form_data.amount" class="form-control validate-text" id="Amount" placeholder="example: 700" />
-                <label for="Amount" class="color-highlight font-500">Amount in english</label>
+                <label for="Amount" class="color-highlight font-500">Name</label>
                 <em class="c_em">(required)</em>
                 <div class="text-danger d-block error amount" style="position: unset;"></div>
             </div>
 
-            <!-- <div class="input-style has-borders no-icon validate-field input-style-always-active mb-4">
-                <input type="file" name="file" class="form-control validate-text" id="file" />
-                <label for="description" class="color-highlight font-500">Related file</label>
+            <div class="input-style has-borders no-icon validate-field input-style-always-active mb-4 custom_select2">
+                <input type="number" name="amount" v-model="form_data.amount" class="form-control validate-text" id="Amount" placeholder="example: 700" />
+                <label for="Amount" class="color-highlight font-500">Mobile No</label>
                 <em class="c_em">(required)</em>
-                <div class="text-danger d-block error file" style="position: unset;"></div>
-            </div> -->
+                <div class="text-danger d-block error amount" style="position: unset;"></div>
+            </div>
+
+            <div class="input-style has-borders no-icon validate-field input-style-always-active mb-4 custom_select2">
+                <input type="number" name="amount" v-model="form_data.amount" class="form-control validate-text" id="Amount" placeholder="example: 700" />
+                <label for="Amount" class="color-highlight font-500">Per day amount</label>
+                <em class="c_em">(required)</em>
+                <div class="text-danger d-block error amount" style="position: unset;"></div>
+            </div>
+
+            <div class="input-style has-borders no-icon validate-field input-style-always-active mb-4 custom_select2">
+                <input type="number" name="amount" v-model="form_data.amount" class="form-control validate-text" id="Amount" placeholder="example: 700" />
+                <label for="Amount" class="color-highlight font-500">Password</label>
+                <em class="c_em">(required)</em>
+                <div class="text-danger d-block error amount" style="position: unset;"></div>
+            </div>
+
+            <div class="input-style has-borders no-icon validate-field input-style-always-active mb-4 custom_select2">
+                <input type="number" name="amount" v-model="form_data.amount" class="form-control validate-text" id="Amount" placeholder="example: 700" />
+                <label for="Amount" class="color-highlight font-500">Re Type Password</label>
+                <em class="c_em">(required)</em>
+                <div class="text-danger d-block error amount" style="position: unset;"></div>
+            </div>
 
             <div class="input-style has-borders no-icon validate-field input-style-always-active mb-4">
                 <textarea type="text" name="description" v-model="form_data.description" class="form-control validate-text" id="description" placeholder="" ></textarea>
