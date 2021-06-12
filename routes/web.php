@@ -56,6 +56,7 @@ Route::group([
     Route::post('/user-info-update', 'ExpenseController@user_info_update')->name('user_info_update_json');
 });
 
+Route::post('/admin-create-project', 'ExpenseController@admin_create_project')->name('admin_create_project');
 Route::post('/admin-save-expense', 'ExpenseController@admin_expense_save')->name('admin_expense_save');
 Route::post('/user-save-expense', 'ExpenseController@user_expense_save')->name('user_expense_save');
 Route::post('/update-expense', 'ExpenseController@expense_update')->name('expense_update');

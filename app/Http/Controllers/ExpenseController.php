@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Expense;
 use App\Models\Notification;
 use App\Models\ProgramType;
+use App\Models\Project;
 use App\Models\SakhaExpense;
 use App\Models\User;
 use Carbon\Carbon;
@@ -299,6 +300,26 @@ class ExpenseController extends Controller
     {
         return Auth::user();
     }
+
+    public function admin_create_project(Request $request)
+    {
+        $this->validate($request,[
+            'name' => 'required',
+        ]);
+
+        $project = new Project();
+        $project->date = $request->date;
+        $project->name = $request->name;
+        $project->project_area = $request->project_area;
+        $project->description = $request->description;
+        $project->creator = Auth::user()->id;
+        $project->save();
+        $project->slug = $project->id.uniqid(10);
+        $project->save();
+
+        return 'success';
+    }
+
 
     public function user_info_update(Request $request)
     {

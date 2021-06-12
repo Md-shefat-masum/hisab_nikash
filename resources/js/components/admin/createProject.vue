@@ -1,7 +1,7 @@
 <template>
     <div>
         <form action="#" id="expense_form" enctype="multipart/form-data">
-            <h3>Insert Project</h3>
+            <h3>Create Project</h3>
             <p></p>
             <div class="input-style has-borders no-icon validate-field input-style-always-active mb-4 custom_select2">
                 <input type="date" name="date" v-model="form_data.date" class="form-control validate-text" id="form1" placeholder="United States" />
@@ -11,17 +11,17 @@
             </div>
 
             <div class="input-style has-borders no-icon validate-field input-style-always-active mb-4 custom_select2">
-                <input type="number" name="amount" v-model="form_data.amount" class="form-control validate-text" id="Amount" placeholder="example: 700" />
-                <label for="Amount" class="color-highlight font-500">Name</label>
+                <input type="text" name="name" v-model="form_data.name" class="form-control validate-text" id="name" placeholder="project name" />
+                <label for="name" class="color-highlight font-500">Name</label>
                 <em class="c_em">(required)</em>
-                <div class="text-danger d-block error amount" style="position: unset;"></div>
+                <div class="text-danger d-block error name" style="position: unset;"></div>
             </div>
 
             <div class="input-style has-borders no-icon validate-field input-style-always-active mb-4 custom_select2">
-                <input type="number" name="amount" v-model="form_data.amount" class="form-control validate-text" id="Amount" placeholder="example: 700" />
-                <label for="Amount" class="color-highlight font-500">Place/Area Name</label>
+                <input type="text" name="project_area" v-model="form_data.project_area" class="form-control validate-text" id="project_area" placeholder="project area name" />
+                <label for="project_area" class="color-highlight font-500">Place/Area Name</label>
                 <em class="c_em">(required)</em>
-                <div class="text-danger d-block error amount" style="position: unset;"></div>
+                <div class="text-danger d-block error project_area" style="position: unset;"></div>
             </div>
 
             <!-- <div class="input-style has-borders no-icon validate-field input-style-always-active mb-4">
@@ -57,11 +57,11 @@ export default {
         ...mapActions(['fetch_employee_list']),
         insert_data: function(){
             let formData = new FormData($('#expense_form')[0]);
-            axios.post('/admin-save-expense',formData)
+            axios.post('/admin-create-project',formData)
                 .then((res)=>{
                     if(res.data){
-                        toaster('success','new expense inserted');
-                        this.$router.push({path:'/admin/expense-list'})
+                        toaster('success','new project inserted');
+                        // this.$router.push({path:'/admin/create-project'})
                     }else{
                         toaster('error','fill up required area');
                     }
@@ -70,7 +70,7 @@ export default {
 
     },
     mounted: function(){
-        this.fetch_employee_list();
+        // this.fetch_employee_list();
         $('.employee').select2();
         $('.employee').on('change',function(){
             this.form_data.employee_id = $('.employee').val();

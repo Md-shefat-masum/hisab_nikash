@@ -2493,16 +2493,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapActions)(['fetch_employee_list'])), {}, {
     insert_data: function insert_data() {
-      var _this = this;
-
       var formData = new FormData($('#expense_form')[0]);
-      axios.post('/admin-save-expense', formData).then(function (res) {
+      axios.post('/admin-create-project', formData).then(function (res) {
         if (res.data) {
-          toaster('success', 'new expense inserted');
-
-          _this.$router.push({
-            path: '/admin/expense-list'
-          });
+          toaster('success', 'new project inserted'); // this.$router.push({path:'/admin/create-project'})
         } else {
           toaster('error', 'fill up required area');
         }
@@ -2510,7 +2504,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }),
   mounted: function mounted() {
-    this.fetch_employee_list();
+    // this.fetch_employee_list();
     $('.employee').select2();
     $('.employee').on('change', function () {
       this.form_data.employee_id = $('.employee').val();
@@ -54556,7 +54550,7 @@ var render = function() {
         }
       },
       [
-        _c("h3", [_vm._v("Insert Project")]),
+        _c("h3", [_vm._v("Create Project")]),
         _vm._v(" "),
         _c("p"),
         _vm._v(" "),
@@ -54624,24 +54618,24 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.form_data.amount,
-                  expression: "form_data.amount"
+                  value: _vm.form_data.name,
+                  expression: "form_data.name"
                 }
               ],
               staticClass: "form-control validate-text",
               attrs: {
-                type: "number",
-                name: "amount",
-                id: "Amount",
-                placeholder: "example: 700"
+                type: "text",
+                name: "name",
+                id: "name",
+                placeholder: "project name"
               },
-              domProps: { value: _vm.form_data.amount },
+              domProps: { value: _vm.form_data.name },
               on: {
                 input: function($event) {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.$set(_vm.form_data, "amount", $event.target.value)
+                  _vm.$set(_vm.form_data, "name", $event.target.value)
                 }
               }
             }),
@@ -54650,7 +54644,7 @@ var render = function() {
               "label",
               {
                 staticClass: "color-highlight font-500",
-                attrs: { for: "Amount" }
+                attrs: { for: "name" }
               },
               [_vm._v("Name")]
             ),
@@ -54658,7 +54652,7 @@ var render = function() {
             _c("em", { staticClass: "c_em" }, [_vm._v("(required)")]),
             _vm._v(" "),
             _c("div", {
-              staticClass: "text-danger d-block error amount",
+              staticClass: "text-danger d-block error name",
               staticStyle: { position: "unset" }
             })
           ]
@@ -54676,24 +54670,24 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.form_data.amount,
-                  expression: "form_data.amount"
+                  value: _vm.form_data.project_area,
+                  expression: "form_data.project_area"
                 }
               ],
               staticClass: "form-control validate-text",
               attrs: {
-                type: "number",
-                name: "amount",
-                id: "Amount",
-                placeholder: "example: 700"
+                type: "text",
+                name: "project_area",
+                id: "project_area",
+                placeholder: "project area name"
               },
-              domProps: { value: _vm.form_data.amount },
+              domProps: { value: _vm.form_data.project_area },
               on: {
                 input: function($event) {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.$set(_vm.form_data, "amount", $event.target.value)
+                  _vm.$set(_vm.form_data, "project_area", $event.target.value)
                 }
               }
             }),
@@ -54702,7 +54696,7 @@ var render = function() {
               "label",
               {
                 staticClass: "color-highlight font-500",
-                attrs: { for: "Amount" }
+                attrs: { for: "project_area" }
               },
               [_vm._v("Place/Area Name")]
             ),
@@ -54710,7 +54704,7 @@ var render = function() {
             _c("em", { staticClass: "c_em" }, [_vm._v("(required)")]),
             _vm._v(" "),
             _c("div", {
-              staticClass: "text-danger d-block error amount",
+              staticClass: "text-danger d-block error project_area",
               staticStyle: { position: "unset" }
             })
           ]
