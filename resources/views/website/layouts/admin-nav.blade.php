@@ -52,15 +52,21 @@
             <i class="fa fa-angle-right"></i>
         </router-link>
 
-        <router-link :to="{ name: 'adminProfile'}">
+        <router-link :to="{ name: 'adminCreateLabour'}">
             <i class="fa fa-users gradient-brown color-white"></i>
             <span>Create Labour</span>
             <i class="fa fa-angle-right"></i>
         </router-link>
 
-        <router-link :to="{ name: 'adminProfile'}">
+        <router-link :to="{ name: 'adminCreateManager'}">
             <i class="fa fa-users gradient-brown color-white"></i>
             <span>Create Manager</span>
+            <i class="fa fa-angle-right"></i>
+        </router-link>
+
+        <router-link :to="{ name: 'adminCreateProject'}">
+            <i class="fa fa-users gradient-info color-white"></i>
+            <span>Create Project</span>
             <i class="fa fa-angle-right"></i>
         </router-link>
 
