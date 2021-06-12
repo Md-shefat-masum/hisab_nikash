@@ -53,19 +53,19 @@
         </router-link>
 
         <router-link :to="{ name: 'adminProfile'}">
-            <i class="fa fa-user gradient-blue color-white"></i>
+            <i class="fa fa-users gradient-brown color-white"></i>
             <span>Create Labour</span>
             <i class="fa fa-angle-right"></i>
         </router-link>
 
         <router-link :to="{ name: 'adminProfile'}">
-            <i class="fa fa-user gradient-blue color-white"></i>
+            <i class="fa fa-users gradient-brown color-white"></i>
             <span>Create Manager</span>
             <i class="fa fa-angle-right"></i>
         </router-link>
 
         <router-link :to="{ name: 'adminProfile'}">
-            <i class="fa fa-user gradient-blue color-white"></i>
+            <i class="fa fa-list gradient-brown color-white"></i>
             <span>Exopense History</span>
             <i class="fa fa-angle-right"></i>
         </router-link>
