@@ -2479,8 +2479,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -54558,7 +54556,7 @@ var render = function() {
         }
       },
       [
-        _c("h3", [_vm._v("Insert Expense")]),
+        _c("h3", [_vm._v("Insert Project")]),
         _vm._v(" "),
         _c("p"),
         _vm._v(" "),
@@ -54614,76 +54612,57 @@ var render = function() {
           ]
         ),
         _vm._v(" "),
-        _c("div", { staticClass: "mb-4 custom_select2" }, [
-          _c(
-            "label",
-            {
-              staticClass: "color-highlight font-500",
-              staticStyle: {
-                position: "absolute",
-                background: "white",
-                top: "-12px"
-              },
-              attrs: { for: "select2" }
-            },
-            [_vm._v("Employee")]
-          ),
-          _vm._v(" "),
-          _c(
-            "em",
-            {
-              staticClass: "c_em",
-              staticStyle: { right: "12px", top: "-12px" }
-            },
-            [_vm._v("(required)")]
-          ),
-          _vm._v(" "),
-          _c(
-            "select",
-            {
+        _c(
+          "div",
+          {
+            staticClass:
+              "input-style has-borders no-icon validate-field input-style-always-active mb-4 custom_select2"
+          },
+          [
+            _c("input", {
               directives: [
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.form_data.employee_id,
-                  expression: "form_data.employee_id"
+                  value: _vm.form_data.amount,
+                  expression: "form_data.amount"
                 }
               ],
-              staticClass: "form-control employee",
-              attrs: { name: "employee_id", id: "form2" },
+              staticClass: "form-control validate-text",
+              attrs: {
+                type: "number",
+                name: "amount",
+                id: "Amount",
+                placeholder: "example: 700"
+              },
+              domProps: { value: _vm.form_data.amount },
               on: {
-                change: function($event) {
-                  var $$selectedVal = Array.prototype.filter
-                    .call($event.target.options, function(o) {
-                      return o.selected
-                    })
-                    .map(function(o) {
-                      var val = "_value" in o ? o._value : o.value
-                      return val
-                    })
-                  _vm.$set(
-                    _vm.form_data,
-                    "employee_id",
-                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-                  )
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.form_data, "amount", $event.target.value)
                 }
               }
-            },
-            _vm._l(_vm.get_employee_list, function(item) {
-              return _c(
-                "option",
-                { key: item.id, domProps: { value: item.id } },
-                [_vm._v(_vm._s(item.first_name + " " + item.last_name))]
-              )
             }),
-            0
-          ),
-          _vm._v(" "),
-          _c("div", {
-            staticClass: "text-danger d-block error employee_id",
-            staticStyle: { position: "unset" }
-          })
-        ]),
+            _vm._v(" "),
+            _c(
+              "label",
+              {
+                staticClass: "color-highlight font-500",
+                attrs: { for: "Amount" }
+              },
+              [_vm._v("Name")]
+            ),
+            _vm._v(" "),
+            _c("em", { staticClass: "c_em" }, [_vm._v("(required)")]),
+            _vm._v(" "),
+            _c("div", {
+              staticClass: "text-danger d-block error amount",
+              staticStyle: { position: "unset" }
+            })
+          ]
+        ),
         _vm._v(" "),
         _c(
           "div",
@@ -54725,7 +54704,7 @@ var render = function() {
                 staticClass: "color-highlight font-500",
                 attrs: { for: "Amount" }
               },
-              [_vm._v("Amount in english")]
+              [_vm._v("Place/Area Name")]
             ),
             _vm._v(" "),
             _c("em", { staticClass: "c_em" }, [_vm._v("(required)")]),

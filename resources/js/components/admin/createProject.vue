@@ -1,7 +1,7 @@
 <template>
     <div>
         <form action="#" id="expense_form" enctype="multipart/form-data">
-            <h3>Insert Expense</h3>
+            <h3>Insert Project</h3>
             <p></p>
             <div class="input-style has-borders no-icon validate-field input-style-always-active mb-4 custom_select2">
                 <input type="date" name="date" v-model="form_data.date" class="form-control validate-text" id="form1" placeholder="United States" />
@@ -10,18 +10,16 @@
                 <div class="text-danger d-block error date" style="position: unset;"></div>
             </div>
 
-            <div class="mb-4 custom_select2">
-                <label for="select2" class="color-highlight font-500" style="position:absolute;background:white;top:-12px">Employee</label>
-                <em class="c_em" style="right:12px; top:-12px;">(required)</em>
-                <select name="employee_id" class="form-control employee" v-model="form_data.employee_id" id="form2">
-                    <option v-for="item in get_employee_list" :key="item.id" :value="item.id">{{ item.first_name + ' ' + item.last_name }}</option>
-                </select>
-                <div class="text-danger d-block error employee_id" style="position: unset;"></div>
+            <div class="input-style has-borders no-icon validate-field input-style-always-active mb-4 custom_select2">
+                <input type="number" name="amount" v-model="form_data.amount" class="form-control validate-text" id="Amount" placeholder="example: 700" />
+                <label for="Amount" class="color-highlight font-500">Name</label>
+                <em class="c_em">(required)</em>
+                <div class="text-danger d-block error amount" style="position: unset;"></div>
             </div>
 
             <div class="input-style has-borders no-icon validate-field input-style-always-active mb-4 custom_select2">
                 <input type="number" name="amount" v-model="form_data.amount" class="form-control validate-text" id="Amount" placeholder="example: 700" />
-                <label for="Amount" class="color-highlight font-500">Amount in english</label>
+                <label for="Amount" class="color-highlight font-500">Place/Area Name</label>
                 <em class="c_em">(required)</em>
                 <div class="text-danger d-block error amount" style="position: unset;"></div>
             </div>
