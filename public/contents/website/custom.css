@@ -1,0 +1,124 @@
+ul {
+  margin-left: 0;
+  padding-left: 0;
+}
+ul li {
+  list-style: none;
+}
+input[type="time"],
+input[type="date"] {
+  position: relative;
+}
+input[type="time"]::-webkit-calendar-picker-indicator,
+input[type="date"]::-webkit-calendar-picker-indicator {
+  width: 100%;
+  position: absolute;
+  height: 100%;
+  left: -0.75rem;
+  top: 0;
+  background-size: 20px;
+  background-position: 90% center;
+  border: 0;
+}
+input[type="time"]::-webkit-calendar-picker-indicator {
+  background-position: 96% center;
+}
+.content_wraper {
+  position: relative;
+}
+.content_wraper .content-loader {
+  position: absolute;
+  height: 100%;
+  background: white url(../website/images/loader.gif) center center;
+  background-size: 64%;
+  background-repeat: no-repeat;
+  backdrop-filter: blur(3px);
+  filter: opacity(0.6);
+  top: 0;
+  left: 50%;
+  width: 100%;
+  transform: translatex(-50%);
+  z-index: 999;
+}
+.content_wraper .content-loader-hide {
+  opacity: 0;
+  visibility: hidden;
+}
+.content_wraper {
+  height: 68vh;
+  overflow-y: scroll;
+}
+.page-link:focus {
+  box-shadow: unset;
+}
+.pagination .page-link {
+  padding: 1px 9px;
+}
+.modal-backdrop {
+  height: 0;
+  width: 0;
+}
+.modal-open .modal {
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(3px);
+}
+.text-custom1 {
+  /* color: #212529!important; */
+  display: block;
+  overflow: hidden;
+  font-size: 15px;
+  line-height: 16px;
+  padding: 10px 0px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #610909;
+}
+.modal-content {
+  border: 0;
+  border-radius: 0;
+}
+.w-100px {
+  width: 120px;
+}
+@media (min-width: 575px) {
+  html,
+  body {
+    width: 575px;
+    margin: auto;
+    overflow: hidden;
+    border-radius: 5px;
+    background: url('../website/images/pictures/6.jpg');
+    background-position: center center;
+  }
+  html {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    width: 100%;
+    height: 100%;
+  }
+  #page {
+    position: relative;
+    min-height: 60vh;
+    background: #e6e6e6bf;
+  }
+  #footer-bar,
+  .menu,
+  .page-title-fixed {
+    position: absolute;
+  }
+}
+.select2-container--default .select2-selection--multiple,
+.select2-container--default.select2-container--focus .select2-selection--multiple {
+  border: 0 !important;
+}
+.custom_select2 {
+  position: relative;
+  border: 1px solid #ebebeb;
+  padding: 20px 9px;
+  border-radius: 10px;
+}
+.pagination .page-item.disabled {
+  display: block !important;
+}
