@@ -29,6 +29,9 @@ Route::group([
     'prefix' => '/json',
     'middleware' => ['auth'],
 ], function () {
+    Route::get('/project-list', 'ExpenseController@project_list')->name('project_list_json');
+    Route::get('/project-expense', 'ExpenseController@project_expense')->name('project_expense_json');
+
     Route::get('/employee-list', 'ExpenseController@employee_list')->name('employee_list_json');
 
     Route::get('/admin-expenses', 'ExpenseController@admin_expenses')->name('admin_expenses_json');
@@ -56,6 +59,8 @@ Route::group([
     Route::post('/user-info-update', 'ExpenseController@user_info_update')->name('user_info_update_json');
 });
 
+Route::post('/admin-create-manpower', 'ExpenseController@admin_create_manpower')->name('admin_create_manpower');
+Route::post('/admin-delete-project', 'ExpenseController@admin_delete_project')->name('admin_delete_project');
 Route::post('/admin-create-project', 'ExpenseController@admin_create_project')->name('admin_create_project');
 Route::post('/admin-save-expense', 'ExpenseController@admin_expense_save')->name('admin_expense_save');
 Route::post('/user-save-expense', 'ExpenseController@user_expense_save')->name('user_expense_save');

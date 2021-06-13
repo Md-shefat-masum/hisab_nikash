@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ExpenseController extends Controller
 {
@@ -162,6 +163,10 @@ class ExpenseController extends Controller
         $total_expense = Expense::where('status',1)->count();
         $total_deposit_expense = Expense::where('status',1)->where('expense_type','deposit')->count();
         $total_expense_expense = Expense::where('status',1)->where('expense_type','expense')->count();
+        $total_user_expense = Expense::where('status',1)->where('expense_type','expense')
+                                        ->select('employee_id')->distinct('employee_id')->count();
+        $total_project_expense = Expense::where('status',1)->where('expense_type','expense')
+                                        ->select('project_id')->distinct('project_id')->count();
 
         $total_give_amount = Expense::where('status',1)->where('expense_type','deposit')->sum('amount');
         $total_expense_amount = Expense::where('status',1)->where('expense_type','expense')->sum('amount');
@@ -172,6 +177,8 @@ class ExpenseController extends Controller
             'total_expense' => $total_expense,
             'total_deposit_expense' => $total_deposit_expense,
             'total_expense_expense' => $total_expense_expense,
+            'total_project_expense' => $total_project_expense,
+            'total_user_expense' => $total_user_expense,
             'total_give_amount' => $total_give_amount,
             'total_expense_amount' => $total_expense_amount,
             'total_remaining_amount' => $total_remaining_amount,
@@ -183,11 +190,13 @@ class ExpenseController extends Controller
         $this->validate($request,[
             'amount' => ['required'],
             'employee_id' => ['required'],
+            'project_id' => ['required'],
             // 'file' => ['required'],
         ]);
 
         $expense = new Expense();
         $expense->employee_id = $request->employee_id;
+        $expense->project_id = $request->project_id;
         $expense->amount = $request->amount;
         $expense->date = $request->date;
         $expense->amount = $request->amount;
@@ -320,6 +329,51 @@ class ExpenseController extends Controller
         return 'success';
     }
 
+    public function project_list()
+    {
+        return Project::orderBy('name','ASC')->where('status',1)->get();
+    }
+
+    public function project_expense()
+    {
+        $expense = Project::where('status',1)->with('expenses')->paginate(8);
+        return $expense;
+    }
+
+    public function admin_delete_project(Request $request)
+    {
+        Project::where('id',$request->id)->delete();
+        return 'success';
+    }
+
+    public function admin_create_manpower(Request $request)
+    {
+        $this->validate($request, [
+            'project_id' => ['required'],
+            'name' => ['required'],
+            'phone' => ['required'],
+            'password' => ['required','confirmed','min:8'],
+        ]);
+
+        $user = new User();
+        $user->first_name = $request->name;
+        if(strlen($request->email)>0){
+            $this->validate($request,['email' => ['email']]);
+            $this->email = $request->email;
+        }
+        else{
+            $user->email = User::first()->id.str_replace(' ','_',$request->name).'@hsblco.com';
+        }
+        $user->username = $request->username;
+        $user->phone = $request->phone;
+        $user->per_day_amount = $request->per_day_amount;
+        $user->password = Hash::make($request->password);
+        $user->save();
+        $user->role_id = 4;
+        $user->slug = Str::slug($user->id).'_'.$user->id.rand(111,999);
+        $user->save();
+        return 'success';
+    }
 
     public function user_info_update(Request $request)
     {

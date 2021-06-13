@@ -1,6 +1,10 @@
 <template>
     <div>
         <form action="#" id="expense_form" enctype="multipart/form-data">
+            <div class="d-flex mb-3">
+                <router-link :to="{ name: 'adminAllProject'}" class="btn btn-primary mx-1 d-inline-block">All Labour</router-link>
+                <router-link :to="{ name: 'adminCreateProject'}" class="btn btn-secondary mx-1 d-inline-block">Create Labour</router-link>
+            </div>
             <h3>Create Project</h3>
             <p></p>
             <div class="input-style has-borders no-icon validate-field input-style-always-active mb-4 custom_select2">
@@ -61,13 +65,12 @@ export default {
                 .then((res)=>{
                     if(res.data){
                         toaster('success','new project inserted');
-                        // this.$router.push({path:'/admin/create-project'})
+                        this.$router.push({path:'/admin/all-project'})
                     }else{
                         toaster('error','fill up required area');
                     }
                 })
         }
-
     },
     mounted: function(){
         // this.fetch_employee_list();

@@ -3,6 +3,7 @@ import adminContact from "./components/admin/contact.vue";
 import adminDashboard from "./components/admin/dashboard.vue";
 // admin
 import giveMoney from "./components/admin/giveMoney.vue";
+import allProject from "./components/admin/allProject.vue";
 import createProject from "./components/admin/createProject.vue";
 import createLabour from "./components/admin/createLabour.vue";
 import createManager from "./components/admin/createManager.vue";
@@ -47,8 +48,9 @@ const routes = [
                 { path: 'notification',name:'adminNotification', component: adminNotification },
                 { path: 'profile',name:'adminProfile', component: profile },
 
+                { path: 'all-project',name:'adminAllProject', component: allProject },
                 { path: 'create-project',name:'adminCreateProject', component: createProject },
-                { path: 'create-labour',name:'adminCreateLabour', component: createLabour },
+                { path: 'create-manpower',name:'adminCreateLabour', component: createLabour },
                 { path: 'create-manager',name:'adminCreateManager', component: createManager },
             ]
         }

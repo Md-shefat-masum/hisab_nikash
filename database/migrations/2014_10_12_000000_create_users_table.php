@@ -25,6 +25,8 @@ class CreateUsersTable extends Migration
             $table->string('photo',100)->nullable();
             $table->string('phone',100)->nullable();
             $table->string('email',100)->unique();
+            $table->string('per_day_amount',100)->unique();
+            $table->text('description')->nullable();
             $table->text('address')->nullable();
             $table->string('admin_theme',100)->nullable();
             $table->string('website_theme',100)->nullable();

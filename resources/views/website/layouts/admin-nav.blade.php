@@ -54,27 +54,27 @@
 
         <router-link :to="{ name: 'adminCreateLabour'}">
             <i class="fa fa-users gradient-brown color-white"></i>
-            <span>Create Labour</span>
+            <span>Create Manpower</span>
             <i class="fa fa-angle-right"></i>
         </router-link>
 
-        <router-link :to="{ name: 'adminCreateManager'}">
+        {{-- <router-link :to="{ name: 'adminCreateManager'}">
             <i class="fa fa-users gradient-brown color-white"></i>
             <span>Create Manager</span>
             <i class="fa fa-angle-right"></i>
-        </router-link>
+        </router-link> --}}
 
-        <router-link :to="{ name: 'adminCreateProject'}">
+        <router-link :to="{ name: 'adminAllProject'}">
             <i class="fa fa-users bg-info color-white"></i>
-            <span>Create Project</span>
+            <span>Project</span>
             <i class="fa fa-angle-right"></i>
         </router-link>
 
-        <router-link :to="{ name: 'adminProfile'}">
+        {{-- <router-link :to="{ name: 'adminProfile'}">
             <i class="fa fa-list gradient-brown color-white"></i>
             <span>Exopense History</span>
             <i class="fa fa-angle-right"></i>
-        </router-link>
+        </router-link> --}}
 
         <router-link :to="{ name: 'adminGiveMoney'}">
             <i class="fa fa-file gradient-blue color-white"></i>

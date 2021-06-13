@@ -1,30 +1,38 @@
 <template>
     <div>
         <form action="#" id="expense_form" enctype="multipart/form-data">
-            <h3>Create Labour</h3>
+
+            <h3>Create Manpower</h3>
             <p></p>
 
             <div class="mb-4 custom_select2">
                 <label for="select2" class="color-highlight font-500" style="position:absolute;background:white;top:-12px">Project</label>
                 <em class="c_em" style="right:12px; top:-12px;">(required)</em>
-                <select name="employee_id" class="form-control employee" v-model="form_data.employee_id" id="form2">
-                    <option v-for="item in get_employee_list" :key="item.id" :value="item.id">{{ item.first_name + ' ' + item.last_name }}</option>
+                <select name="project_id" class="form-control employee" v-model="form_data.project_id" id="project_id">
+                    <option v-for="item in projects" :key="item.id" :value="item.id">{{ item.name }}</option>
                 </select>
-                <div class="text-danger d-block error employee_id" style="position: unset;"></div>
+                <div class="text-danger d-block error project_id" style="position: unset;"></div>
             </div>
 
             <div class="input-style has-borders no-icon validate-field input-style-always-active mb-4 custom_select2">
-                <input type="number" name="amount" v-model="form_data.amount" class="form-control validate-text" id="Amount" placeholder="example: 700" />
-                <label for="Amount" class="color-highlight font-500">Name</label>
+                <input type="text" name="name" v-model="form_data.name" class="form-control validate-text" id="name" placeholder="Name" />
+                <label for="name" class="color-highlight font-500">Name</label>
                 <em class="c_em">(required)</em>
-                <div class="text-danger d-block error amount" style="position: unset;"></div>
+                <div class="text-danger d-block error name" style="position: unset;"></div>
             </div>
 
             <div class="input-style has-borders no-icon validate-field input-style-always-active mb-4 custom_select2">
-                <input type="number" name="amount" v-model="form_data.amount" class="form-control validate-text" id="Amount" placeholder="example: 700" />
-                <label for="Amount" class="color-highlight font-500">Mobile No</label>
+                <input type="email" name="email" v-model="form_data.email" class="form-control validate-text" id="email" placeholder="email" />
+                <label for="email" class="color-highlight font-500">email</label>
                 <em class="c_em">(required)</em>
-                <div class="text-danger d-block error amount" style="position: unset;"></div>
+                <div class="text-danger d-block error email" style="position: unset;"></div>
+            </div>
+
+            <div class="input-style has-borders no-icon validate-field input-style-always-active mb-4 custom_select2">
+                <input type="text" name="phone" v-model="form_data.phone" class="form-control validate-text" id="phone" placeholder="phone" />
+                <label for="phone" class="color-highlight font-500">Mobile No</label>
+                <em class="c_em">(required)</em>
+                <div class="text-danger d-block error phone" style="position: unset;"></div>
             </div>
 
             <div class="input-style has-borders no-icon validate-field input-style-always-active mb-4 custom_select2">
@@ -34,6 +42,19 @@
                 <div class="text-danger d-block error amount" style="position: unset;"></div>
             </div>
 
+            <div class="input-style has-borders no-icon validate-field input-style-always-active mb-4 custom_select2">
+                <input type="password" value="@12345678" name="password" v-model="form_data.password" class="form-control validate-text" id="password" placeholder="password" />
+                <label for="password" class="color-highlight font-500">Password ( dafault @12345678 )</label>
+                <em class="c_em">(required)</em>
+                <div class="text-danger d-block error password" style="position: unset;"></div>
+            </div>
+
+            <div class="input-style has-borders no-icon validate-field input-style-always-active mb-4 custom_select2">
+                <input type="password" value="@12345678" name="password_confirmation" v-model="form_data.password_confirmation" class="form-control validate-text" id="password_confirmation" placeholder="password confirmation" />
+                <label for="password_confirmation" class="color-highlight font-500">Re Type Password ( dafault @12345678 )</label>
+                <em class="c_em">(required)</em>
+                <div class="text-danger d-block error password_confirmation" style="position: unset;"></div>
+            </div>
 
             <div class="input-style has-borders no-icon validate-field input-style-always-active mb-4">
                 <textarea type="text" name="description" v-model="form_data.description" class="form-control validate-text" id="description" placeholder="" ></textarea>
@@ -50,22 +71,43 @@ export default {
     data: function(){
         return {
             form_data : {
-                date: new Date().toISOString().slice(0,10),
-                employee_id: 1,
-                amount: '',
+                name: '',
+                project_id: '',
+                email: '',
+                phone: '',
                 description: '',
-            }
+                per_day_amount: '',
+                password: '@12345678',
+                password_confirmation: '@12345678',
+            },
+            projects: [],
         }
     },
     methods:{
-        ...mapActions(['fetch_employee_list']),
+        get_project: function(){
+            axios.get('/json/project-list')
+                .then((res)=>{
+                    this.projects = res.data;
+                })
+        },
         insert_data: function(){
             let formData = new FormData($('#expense_form')[0]);
-            axios.post('/admin-save-expense',formData)
+            axios.post('/admin-create-manpower',formData)
                 .then((res)=>{
                     if(res.data){
-                        toaster('success','new expense inserted');
-                        this.$router.push({path:'/admin/expense-list'})
+                        toaster('success','new manpower inserted');
+                        // this.$router.push({path:'/admin/expense-list'})
+                        $('#expense_form')[0].reset();
+                        this.form_data = {
+                            name: '',
+                            project_id: '',
+                            email: '',
+                            phone: '',
+                            description: '',
+                            per_day_amount: '',
+                            password: '@12345678',
+                            password_confirmation: '@12345678',
+                        };
                     }else{
                         toaster('error','fill up required area');
                     }
@@ -74,10 +116,10 @@ export default {
 
     },
     mounted: function(){
-        this.fetch_employee_list();
+        this.get_project();
         $('.employee').select2();
         $('.employee').on('change',function(){
-            this.form_data.employee_id = $('.employee').val();
+            this.form_data.project_id = $('.employee').val();
         }.bind(this));
     },
     computed: {

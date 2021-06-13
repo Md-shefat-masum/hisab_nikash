@@ -11,6 +11,15 @@
             </div>
 
             <div class="mb-4 custom_select2">
+                <label for="select2" class="color-highlight font-500" style="position:absolute;background:white;top:-12px">Project</label>
+                <em class="c_em" style="right:12px; top:-12px;">(required)</em>
+                <select name="project_id" class="form-control project" v-model="form_data.project_id" id="project_id">
+                    <option v-for="item in projects" :key="item.id" :value="item.id">{{ item.name }}</option>
+                </select>
+                <div class="text-danger d-block error project_id" style="position: unset;"></div>
+            </div>
+
+            <div class="mb-4 custom_select2">
                 <label for="select2" class="color-highlight font-500" style="position:absolute;background:white;top:-12px">Employee</label>
                 <em class="c_em" style="right:12px; top:-12px;">(required)</em>
                 <select name="employee_id" class="form-control employee" v-model="form_data.employee_id" id="form2">
@@ -49,14 +58,22 @@ export default {
         return {
             form_data : {
                 date: new Date().toISOString().slice(0,10),
-                employee_id: 1,
+                employee_id: '',
+                project_id: '',
                 amount: '',
                 description: '',
-            }
+            },
+            projects: [],
         }
     },
     methods:{
         ...mapActions(['fetch_employee_list']),
+        get_project: function(){
+            axios.get('/json/project-list')
+                .then((res)=>{
+                    this.projects = res.data;
+                })
+        },
         insert_data: function(){
             let formData = new FormData($('#expense_form')[0]);
             axios.post('/admin-save-expense',formData)
@@ -73,9 +90,14 @@ export default {
     },
     mounted: function(){
         this.fetch_employee_list();
+        this.get_project();
         $('.employee').select2();
+        $('.project').select2();
         $('.employee').on('change',function(){
             this.form_data.employee_id = $('.employee').val();
+        }.bind(this));
+        $('.project').on('change',function(){
+            this.form_data.project_id = $('.project').val();
         }.bind(this));
     },
     computed: {

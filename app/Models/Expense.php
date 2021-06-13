@@ -17,6 +17,7 @@ class Expense extends Model
     }
 
 
+
     public function employee()
     {
         return $this->belongsTo('App\Models\User','employee_id');
