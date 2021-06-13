@@ -54,24 +54,29 @@
     <div class="mt-4"></div>
     <h6 class="menu-divider">MENU</h6>
     <div class="list-group list-custom-small list-menu">
+
         <router-link :to="{ name: 'employeeDashboard'}">
             <i class="fa fa-home gradient-red color-white"></i>
             <span>Home</span>
             <i class="fa fa-angle-right"></i>
         </router-link>
+
         <router-link :to="{ name: 'employeeProfile'}">
             <i class="fa fa-user gradient-blue color-white"></i>
             <span>Profile</span>
             <i class="fa fa-angle-right"></i>
         </router-link>
+
         <router-link :to="{ name: 'addExpense'}">
             <i class="fa fa-plus gradient-green color-white"></i>
             <span>New Expense</span> <i class="fa fa-angle-right"></i>
         </router-link>
+
         <router-link :to="{ name: 'userExpenseList'}">
             <i class="fa fa-file gradient-blue color-white"></i>
             <span>Expense Lists</span> <i class="fa fa-angle-right"></i>
         </router-link>
+
         {{-- <a href="#">
             <i class="fa fa-file gradient-brown color-white"></i>
             <span>Pending Lists</span> <i class="fa fa-angle-right"></i>
