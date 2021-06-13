@@ -16,8 +16,6 @@ class Expense extends Model
         return $date;
     }
 
-
-
     public function employee()
     {
         return $this->belongsTo('App\Models\User','employee_id');
@@ -26,5 +24,10 @@ class Expense extends Model
     public function admin()
     {
         return $this->belongsTo('App\Models\User');
+    }
+
+    public function project()
+    {
+        return $this->belongsTo('App\Models\Project');
     }
 }

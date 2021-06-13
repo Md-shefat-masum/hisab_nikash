@@ -31,6 +31,7 @@ Route::group([
 ], function () {
     Route::get('/project-list', 'ExpenseController@project_list')->name('project_list_json');
     Route::get('/project-expense', 'ExpenseController@project_expense')->name('project_expense_json');
+    Route::get('/user-expense', 'ExpenseController@user_expense')->name('user_expense_json');
 
     Route::get('/employee-list', 'ExpenseController@employee_list')->name('employee_list_json');
 

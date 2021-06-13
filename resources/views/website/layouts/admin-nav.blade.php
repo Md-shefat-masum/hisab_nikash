@@ -6,7 +6,7 @@
 </div>
 
 <div id="footer-bar" class="footer-bar-6">
-    <router-link :to="{ name: 'adminGiveMoney'}"><i class="fa fa-plus"></i><span>Give Money</span></router-link>
+    <router-link :to="{ name: 'adminGiveMoney'}"><i class="fa fa-plus"></i><span>Add Benifitial</span></router-link>
     <router-link :to="{ name: 'adminExpenseList'}"><i class="fa fa-list-ul"></i><span>Expense List</span></router-link>
     <router-link :to="{ name: 'adminDashboard'}" class="circle-nav active-nav home_btn">
         <i class="fa fa-home"></i><span>Home</span>
@@ -78,7 +78,7 @@
 
         <router-link :to="{ name: 'adminGiveMoney'}">
             <i class="fa fa-file gradient-blue color-white"></i>
-            <span>Give Money</span> <i class="fa fa-angle-right"></i>
+            <span>Add Benifitial</span> <i class="fa fa-angle-right"></i>
         </router-link>
 
         <router-link :to="{ name: 'adminExpenseList'}">
@@ -101,8 +101,9 @@
             <span>Contact</span> <i class="fa fa-angle-right"></i>
         </router-link> --}}
 
-        <a  href="{{ route('logout') }}"
-            onclick="event.preventDefault(); confirm('sure!!') && document.getElementById('logout-form').submit();">
+        {{-- <a  href="{{ route('logout') }}"
+            onclick="event.preventDefault(); confirm('sure!!') && document.getElementById('logout-form').submit();"> --}}
+        <a  href="#" @click="logout">
             <i class="fa fa-sign-out gradient-grass color-white"></i>
             <span>Log Out</span> <i class="fa fa-angle-right"></i>
         </a>

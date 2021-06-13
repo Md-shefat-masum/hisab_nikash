@@ -25,7 +25,10 @@
         <i class="fa fa-user-circle-o"></i><span>Profile</span>
     </router-link>
 
-    <a href="#" class="menu-toggle"><i class="fa fa-bars"></i><span>Menu</span></a>
+    <a href="#" class="menu-toggle">
+        <i class="fa fa-bars"></i>
+        <span>Menu</span>
+    </a>
 </div>
 
 <div class="page-title page-title-fixed">
@@ -83,10 +86,15 @@
             <span>Contact</span> <i class="fa fa-angle-right"></i>
         </router-link> --}}
 
-        <a  href="{{ route('logout') }}"
+        {{-- <a  href="{{ route('logout') }}"
             onclick="event.preventDefault(); confirm('sure!!') && document.getElementById('logout-form').submit();">
             <i class="fa fa-sign-out gradient-magenta color-white"></i>
             <span>Logout</span> <i class="fa fa-angle-right"></i>
+        </a> --}}
+
+        <a  href="#" @click="logout">
+            <i class="fa fa-sign-out gradient-grass color-white"></i>
+            <span>Log Out</span> <i class="fa fa-angle-right"></i>
         </a>
     </div>
 

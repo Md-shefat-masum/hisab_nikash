@@ -2083,6 +2083,92 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -2113,22 +2199,31 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         page: 1,
         from: null,
         to: null
-      }
+      },
+      user_expense: []
     };
   },
   methods: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapActions)(['fetch_admin_expenses', 'fetch_admin_deposit_expenses', 'fetch_admin_expense_expenses', 'fetch_admin_expense_info'])), (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapMutations)(['set_admin_expenses'])), {}, {
     load_expense: function load_expense(slug) {
       this.fetch_admin_expenses(slug);
     },
+    load_user_data: function load_user_data() {
+      var _this = this;
+
+      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+      axios.get('/json/user-expense?page=' + page).then(function (res) {
+        _this.set_admin_expenses(res.data);
+      });
+    },
     filter: function filter() {
       this.fetch_guest_filter_expense(this.filter_info);
     },
     show_details: function show_details(id) {
-      var _this = this;
+      var _this2 = this;
 
       axios.get('/json/expense-details/' + id).then(function (res) {
         // console.log(res.data);
-        _this.selected_expense = res.data;
+        _this2.selected_expense = res.data;
         $('#viewModal').modal('show');
       });
     },
@@ -2136,11 +2231,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.selected_project = project;
       $('#viewProjectModal').modal('show');
     },
+    show_user_expense_details: function show_user_expense_details(user_expense) {
+      this.user_expense = user_expense;
+      $('#viewUserExpenseModal').modal('show');
+    },
     load_project_data: function load_project_data() {
-      var _this2 = this;
+      var _this3 = this;
 
-      axios.get('/json/project-expense').then(function (res) {
-        _this2.set_admin_expenses(res.data);
+      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+      axios.get('/json/project-expense?page=' + page).then(function (res) {
+        _this3.set_admin_expenses(res.data);
       });
     },
     update_expense: function update_expense(id) {
@@ -2152,7 +2252,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     delete_expense: function delete_expense(id) {
-      var _this3 = this;
+      var _this4 = this;
 
       var that = this;
       Swal.fire({
@@ -2174,11 +2274,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               title: 'Deleted successfully'
             });
 
-            _this3.fetch_user_expenses({
+            _this4.fetch_user_expenses({
               page: 1
             });
 
-            _this3.fetch_user_expense_info();
+            _this4.fetch_user_expense_info();
           })["catch"](function () {
             Toast.fire({
               icon: 'error',
@@ -3178,16 +3278,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       form_data: {
         date: new Date().toISOString().slice(0, 10),
-        employee_id: 1,
+        employee_id: '',
+        project_id: '',
         amount: '',
         description: ''
-      }
+      },
+      projects: []
     };
   },
   methods: {
@@ -3207,13 +3318,25 @@ __webpack_require__.r(__webpack_exports__);
           toaster('error', 'fill up required area');
         }
       });
+    },
+    get_project: function get_project() {
+      var _this2 = this;
+
+      axios.get('/json/project-list').then(function (res) {
+        _this2.projects = res.data;
+      });
     }
   },
   mounted: function mounted() {
     // this.fetch_employee_list();
+    this.get_project();
     $('.employee').select2();
+    $('.project').select2();
     $('.employee').on('change', function () {
       this.form_data.employee_id = $('.employee').val();
+    }.bind(this));
+    $('.project').on('change', function () {
+      this.form_data.project_id = $('.project').val();
     }.bind(this));
   },
   computed: {// ...mapGetters([
@@ -3956,7 +4079,24 @@ if (document.getElementById('vueApp')) {
         this.$router.push(link);
       }
     },
-    methods: {},
+    methods: {
+      logout: function logout() {
+        var that = this;
+        sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
+          title: 'Are you sure?',
+          text: "Do you want to logout!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes!'
+        }).then(function (result) {
+          if (result.value) {
+            document.getElementById('logout-form').submit();
+          }
+        });
+      }
+    },
     computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapGetters)(['get_user_info']))
   });
 }
@@ -53814,8 +53954,16 @@ var render = function() {
                         )
                       )
                     ])
-                  : _c("td", { staticClass: "text-center" }, [
+                  : expense.name
+                  ? _c("td", { staticClass: "text-center" }, [
                       _vm._v(_vm._s(expense.name))
+                    ])
+                  : _c("td", { staticClass: "text-center" }, [
+                      _vm._v(
+                        _vm._s(
+                          expense.first_name + " " + (expense.last_name || "")
+                        )
+                      )
                     ]),
                 _vm._v(" "),
                 _c("td", [
@@ -53829,12 +53977,30 @@ var render = function() {
                   _vm._v(" "),
                   _c("span", { staticClass: "d-block mx-1" }, [
                     _vm._v(_vm._s(expense.description))
-                  ])
+                  ]),
+                  _vm._v(" "),
+                  expense.expense_money
+                    ? _c("span", { staticClass: "d-block mx-1" }, [
+                        _c("b", [_vm._v("Given: ")]),
+                        _vm._v(_vm._s(expense.given_money) + " /- "),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("b", [_vm._v("Total expense: ")]),
+                        _vm._v(
+                          _vm._s(expense.expense_money) +
+                            " /-\n                            "
+                        )
+                      ])
+                    : _vm._e()
                 ]),
                 _vm._v(" "),
-                _c("td", { staticClass: "text-center" }, [
-                  _vm._v(_vm._s(expense.amount) + "/-")
-                ]),
+                expense.expense_money
+                  ? _c("td", { staticClass: "text-center" }, [
+                      _vm._v(_vm._s(expense.expense_money) + "/-")
+                    ])
+                  : _c("td", { staticClass: "text-center" }, [
+                      _vm._v(_vm._s(expense.amount) + "/-")
+                    ]),
                 _vm._v(" "),
                 _c("td", { staticClass: "text-center" }, [
                   expense.name
@@ -53847,6 +54013,21 @@ var render = function() {
                             click: function($event) {
                               $event.preventDefault()
                               return _vm.show_project_details(expense)
+                            }
+                          }
+                        },
+                        [_c("i", { staticClass: "fa fa-eye" })]
+                      )
+                    : expense.email
+                    ? _c(
+                        "a",
+                        {
+                          staticClass: "btn btn-xs btn-secondary",
+                          attrs: { href: "#" },
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              return _vm.show_user_expense_details(expense)
                             }
                           }
                         },
@@ -54131,11 +54312,186 @@ var render = function() {
                               _vm._v(" "),
                               _c("td", [_vm._v(_vm._s(expense.date))]),
                               _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(expense.amount))])
+                              _c("td", [_vm._v(_vm._s(expense.amount) + " /-")])
                             ])
                           }),
                           0
                         )
+                      ])
+                    ])
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary",
+                    attrs: { type: "button", "data-dismiss": "modal" }
+                  },
+                  [_vm._v("Close")]
+                ),
+                _vm._v(" "),
+                _vm.selected_expense.expense_type == "deposit"
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            return _vm.update_expense(_vm.selected_expense.id)
+                          }
+                        }
+                      },
+                      [
+                        _c("i", { staticClass: "fa fa-pencil" }),
+                        _vm._v(" Update\n                        ")
+                      ]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.selected_expense.expense_type == "deposit"
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            return _vm.delete_expense(_vm.selected_expense.id)
+                          }
+                        }
+                      },
+                      [
+                        _c("i", { staticClass: "fa fa-trash-o" }),
+                        _vm._v(" Delete\n                        ")
+                      ]
+                    )
+                  : _vm._e()
+              ])
+            ])
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "modal fade",
+          attrs: {
+            id: "viewUserExpenseModal",
+            tabindex: "-1",
+            "aria-labelledby": "viewUserExpenseModalLabel",
+            "aria-hidden": "true"
+          }
+        },
+        [
+          _c("div", { staticClass: "modal-dialog" }, [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(11),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c("div", { staticClass: "content" }, [
+                  _c("h6", {}, [
+                    _vm._v(
+                      "User: " +
+                        _vm._s(
+                          _vm.user_expense.first_name +
+                            " " +
+                            (_vm.user_expense.last_name || "")
+                        )
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row mb-0 mt-n2" }, [
+                    _c("div", { staticClass: "col-12" }, [
+                      _c(
+                        "ul",
+                        {
+                          staticClass:
+                            "icon-list font-500 color-theme font-13 mt-4 line-height-l"
+                        },
+                        [
+                          _c("li", [
+                            _vm._m(12),
+                            _vm._v(" "),
+                            _c("span", [
+                              _c("span", [
+                                _vm._v(
+                                  " " +
+                                    _vm._s(_vm.user_expense.given_money) +
+                                    " /-"
+                                )
+                              ])
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("li", [
+                            _vm._m(13),
+                            _vm._v(" "),
+                            _c("span", [
+                              _c("span", [
+                                _vm._v(
+                                  " " +
+                                    _vm._s(_vm.user_expense.expense_money) +
+                                    " /-"
+                                )
+                              ])
+                            ])
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "table-responsive" }, [
+                        _c("table", { staticClass: "table table-bordered" }, [
+                          _vm._m(14),
+                          _vm._v(" "),
+                          _c(
+                            "tbody",
+                            _vm._l(_vm.user_expense.expenses, function(
+                              expense
+                            ) {
+                              return _c("tr", { key: expense.id }, [
+                                _c("td", [
+                                  _vm._v(
+                                    "\n                                                        " +
+                                      _vm._s(expense.project.name) +
+                                      " "
+                                  ),
+                                  _c("br"),
+                                  _vm._v(" "),
+                                  _c("b", [_vm._v("Type")]),
+                                  _vm._v(
+                                    ": " +
+                                      _vm._s(expense.expense_type) +
+                                      "\n                                                    "
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(
+                                    "\n                                                        " +
+                                      _vm._s(expense.formated_date) +
+                                      " "
+                                  ),
+                                  _c("br"),
+                                  _vm._v(
+                                    "\n                                                        " +
+                                      _vm._s(expense.description) +
+                                      "\n                                                    "
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(_vm._s(expense.amount) + " /-")
+                                ])
+                              ])
+                            }),
+                            0
+                          )
+                        ])
                       ])
                     ])
                   ])
@@ -54341,6 +54697,92 @@ var staticRenderFns = [
         _c("th", [_vm._v("Date")]),
         _vm._v(" "),
         _c("th", [_vm._v("Amount")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        {
+          staticClass: "modal-title",
+          attrs: { id: "viewUserExpenseModalLabel" }
+        },
+        [_vm._v("User Expense Details")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "span",
+      { staticClass: "d-inline-block", staticStyle: { width: "150px" } },
+      [
+        _c("i", { staticClass: "fa opacity-40 fa-gg me-2" }),
+        _vm._v("Given Amount:\n                                            ")
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "span",
+      { staticClass: "d-inline-block", staticStyle: { width: "150px" } },
+      [
+        _c("i", { staticClass: "fa opacity-40 fa-gg me-2" }),
+        _vm._v("Expense Amount:\n                                            ")
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [
+          _c(
+            "span",
+            { staticStyle: { width: "120px", display: "inline-block" } },
+            [_vm._v("Project")]
+          )
+        ]),
+        _vm._v(" "),
+        _c("th", [
+          _c(
+            "span",
+            { staticStyle: { width: "120px", display: "inline-block" } },
+            [_vm._v("Date")]
+          )
+        ]),
+        _vm._v(" "),
+        _c("th", [
+          _c(
+            "span",
+            { staticStyle: { width: "120px", display: "inline-block" } },
+            [_vm._v("Amount")]
+          )
+        ])
       ])
     ])
   }
@@ -56713,6 +57155,77 @@ var render = function() {
             })
           ]
         ),
+        _vm._v(" "),
+        _c("div", { staticClass: "mb-4 custom_select2" }, [
+          _c(
+            "label",
+            {
+              staticClass: "color-highlight font-500",
+              staticStyle: {
+                position: "absolute",
+                background: "white",
+                top: "-12px"
+              },
+              attrs: { for: "select2" }
+            },
+            [_vm._v("Project")]
+          ),
+          _vm._v(" "),
+          _c(
+            "em",
+            {
+              staticClass: "c_em",
+              staticStyle: { right: "12px", top: "-12px" }
+            },
+            [_vm._v("(required)")]
+          ),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.form_data.project_id,
+                  expression: "form_data.project_id"
+                }
+              ],
+              staticClass: "form-control project",
+              attrs: { name: "project_id", id: "project_id" },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.$set(
+                    _vm.form_data,
+                    "project_id",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
+                }
+              }
+            },
+            _vm._l(_vm.projects, function(item) {
+              return _c(
+                "option",
+                { key: item.id, domProps: { value: item.id } },
+                [_vm._v(_vm._s(item.name))]
+              )
+            }),
+            0
+          ),
+          _vm._v(" "),
+          _c("div", {
+            staticClass: "text-danger d-block error project_id",
+            staticStyle: { position: "unset" }
+          })
+        ]),
         _vm._v(" "),
         _c(
           "div",

@@ -219,12 +219,13 @@ class ExpenseController extends Controller
     {
         $this->validate($request,[
             'amount' => ['required'],
-            // 'employee_id' => ['required'],
+            'project_id' => ['required'],
             'file' => ['required'],
         ]);
 
         $expense = new Expense();
         $expense->employee_id = Auth::user()->id;
+        $expense->project_id = $request->id;
         $expense->amount = $request->amount;
         $expense->date = $request->date;
         $expense->amount = $request->amount;
@@ -337,6 +338,12 @@ class ExpenseController extends Controller
     public function project_expense()
     {
         $expense = Project::where('status',1)->with('expenses')->paginate(8);
+        return $expense;
+    }
+
+    public function user_expense()
+    {
+        $expense = User::where('status',1)->where('role_id',4)->with('expenses')->paginate(8);
         return $expense;
     }
 

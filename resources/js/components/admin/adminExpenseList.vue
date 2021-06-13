@@ -22,17 +22,28 @@
                     <tr v-for="( expense, index) in get_admin_expenses.data" :key="expense.id">
                         <th scope="row"  class="text-center">{{index+1}}</th>
                         <td class="text-center" v-if="expense.employee && expense.employee.first_name">{{expense.employee.first_name + ' ' + (expense.employee.last_name || '')}}</td>
-                        <td class="text-center" v-else>{{expense.name}}</td>
+                        <td class="text-center" v-else-if="expense.name">{{expense.name}}</td>
+                        <td class="text-center" v-else>{{expense.first_name + ' ' + (expense.last_name || '')}}</td>
 
                         <td>
                             <span class="d-block mx-1 text-info">{{expense.formated_date}}</span>
                             <span class="d-block mx-1 text-primary">{{expense.expense_type}}</span>
                             <span class="d-block mx-1">{{expense.description}}</span>
+
+                            <span class="d-block mx-1" v-if="expense.expense_money">
+                                <b>Given: </b>{{expense.given_money}} /- <br>
+                                <b>Total expense: </b>{{expense.expense_money}} /-
+                            </span>
                         </td>
 
-                        <td class="text-center">{{expense.amount}}/-</td>
+                        <td class="text-center" v-if="expense.expense_money">{{expense.expense_money}}/-</td>
+                        <td class="text-center" v-else>{{expense.amount}}/-</td>
+
                         <td class="text-center">
                             <a v-if="expense.name" href="#" @click.prevent="show_project_details(expense )" class="btn btn-xs btn-secondary">
+                                <i class="fa fa-eye"></i>
+                            </a>
+                            <a v-else-if="expense.email" href="#" @click.prevent="show_user_expense_details(expense )" class="btn btn-xs btn-secondary">
                                 <i class="fa fa-eye"></i>
                             </a>
                             <a href="#" v-else @click.prevent="show_details(expense.id)" class="btn btn-xs btn-secondary">
@@ -165,10 +176,85 @@
                                             <tr v-for="expense in selected_project.expenses" :key="expense.id">
                                                 <td>{{ expense.employee.first_name+' '+(expense.employee.last_name||'') }}</td>
                                                 <td>{{ expense.date }}</td>
-                                                <td>{{ expense.amount }}</td>
+                                                <td>{{ expense.amount }} /-</td>
                                             </tr>
                                         </tbody>
                                     </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" v-if="selected_expense.expense_type=='deposit'" @click="update_expense(selected_expense.id)" class="btn btn-primary">
+                            <i class="fa fa-pencil"></i> Update
+                        </button>
+                        <button type="button" v-if="selected_expense.expense_type=='deposit'" @click="delete_expense(selected_expense.id)" class="btn btn-danger">
+                            <i class="fa fa-trash-o"></i> Delete
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="viewUserExpenseModal" tabindex="-1" aria-labelledby="viewUserExpenseModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="viewUserExpenseModalLabel">User Expense Details</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="content">
+                            <!-- <p class="font-600 color-highlight mb-n1 text-uppercase">{{selected_expense.guest.first_name}}</p> -->
+                            <h6 class="">User: {{ user_expense.first_name+' '+(user_expense.last_name||'') }}</h6>
+                            <div class="row mb-0 mt-n2">
+                                <div class="col-12">
+                                    <ul class="icon-list font-500 color-theme font-13 mt-4 line-height-l">
+                                        <li>
+                                            <span class="d-inline-block" style="width:150px;">
+                                                <i class="fa opacity-40 fa-gg me-2"></i>Given Amount:
+                                            </span>
+                                            <span>
+                                                <span> {{user_expense.given_money}} /-</span>
+                                            </span>
+                                        </li>
+                                        <li>
+                                            <span class="d-inline-block" style="width:150px;">
+                                                <i class="fa opacity-40 fa-gg me-2"></i>Expense Amount:
+                                            </span>
+                                            <span>
+                                                <span> {{user_expense.expense_money}} /-</span>
+                                            </span>
+                                        </li>
+                                    </ul>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th><span style="width: 120px;display: inline-block;">Project</span></th>
+                                                    <th><span style="width: 120px;display: inline-block;">Date</span></th>
+                                                    <th><span style="width: 120px;display: inline-block;">Amount</span></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr v-for="expense in user_expense.expenses" :key="expense.id">
+                                                    <td>
+                                                        {{ expense.project.name }} <br>
+                                                        <b>Type</b>: {{ expense.expense_type }}
+                                                    </td>
+                                                    <td>
+                                                        {{ expense.formated_date }} <br>
+                                                        {{ expense.description }}
+                                                    </td>
+                                                    <td>{{ expense.amount }} /-</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -221,14 +307,26 @@ export default {
                 page: 1,
                 from: null,
                 to: null,
-            }
+            },
+            user_expense: [],
         }
     },
     methods:{
-        ...mapActions(['fetch_admin_expenses','fetch_admin_deposit_expenses','fetch_admin_expense_expenses','fetch_admin_expense_info']),
+        ...mapActions([
+                        'fetch_admin_expenses',
+                        'fetch_admin_deposit_expenses',
+                        'fetch_admin_expense_expenses',
+                        'fetch_admin_expense_info'
+                    ]),
         ...mapMutations(['set_admin_expenses']),
         load_expense: function(slug){
             this.fetch_admin_expenses(slug);
+        },
+        load_user_data: function(page=1){
+            axios.get('/json/user-expense?page='+page)
+                .then((res)=>{
+                    this.set_admin_expenses(res.data);
+                })
         },
         filter: function(){
             this.fetch_guest_filter_expense(this.filter_info);
@@ -245,8 +343,12 @@ export default {
             this.selected_project = project;
             $('#viewProjectModal').modal('show');
         },
-        load_project_data: function(){
-            axios.get('/json/project-expense')
+        show_user_expense_details: function(user_expense){
+            this.user_expense = user_expense;
+            $('#viewUserExpenseModal').modal('show');
+        },
+        load_project_data: function(page=1){
+            axios.get('/json/project-expense?page='+page)
                 .then((res)=>{
                     this.set_admin_expenses(res.data);
                 })

@@ -75,4 +75,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo('App\Models\UserRole','role_id','id');
     }
+
+    public function expenses()
+    {
+        return $this->hasMany(Expense::class,'employee_id','id')->with('project')->where('status',1)->orderBy('id','DESC');
+    }
 }

@@ -63,6 +63,22 @@ if (document.getElementById('vueApp')) {
             }
         },
         methods: {
+            logout: function(){
+                let that = this;
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "Do you want to logout!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes!'
+                    }).then((result) => {
+                        if (result.value) {
+                            document.getElementById('logout-form').submit()
+                        }
+                    })
+            }
         },
         computed: {
             ...mapGetters(['get_user_info']),
