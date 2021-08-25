@@ -222,10 +222,11 @@ class ExpenseController extends Controller
             'project_id' => ['required'],
             'file' => ['required'],
         ]);
+        // ok
 
         $expense = new Expense();
         $expense->employee_id = Auth::user()->id;
-        $expense->project_id = $request->id;
+        $expense->project_id = $request->project_id;
         $expense->amount = $request->amount;
         $expense->date = $request->date;
         $expense->amount = $request->amount;
