@@ -7,9 +7,9 @@
 
 ## Features 
 - Hisabnikash is a simple SPA account management system.
--Easy to use and keeping daily expenses and monthly reporting system.
--Role-based authentication. Where admin, manager, and user have their individual panel in on-page. Admin gives money to each manager and the manager divides the money to users. --Users submit their regular expenses on this application.
--Implemented with PHP, laravel, mySQL and Vue js.
+- Easy to use and keeping daily expenses and monthly reporting system.
+- Role-based authentication. Where admin, manager, and user have their individual panel in on-page. Admin gives money to each manager and the manager divides the money to users. -- Users submit their regular expenses on this application.
+- Implemented with PHP, laravel, mySQL and Vue js.
 
 
 ## Madeby
